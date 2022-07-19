@@ -18,6 +18,7 @@ module.exports = {
 				"rr-bg-light": "#fafafa",
 				"rr-paper-dark": "#27272a",
 				"rr-paper-light": "#f4f4f5",
+				"rr-border-light": "rgb(255 255 255 / 0.1)",
 			},
 		},
 	},
