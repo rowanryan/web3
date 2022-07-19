@@ -13,8 +13,8 @@ const Layout = (props: Props) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="h-screen bg-slate-900">
-				<div className="container mx-auto max-w-4xl">
+			<main className="min-h-screen bg-zinc-900">
+				<div className="container mx-auto max-w-2xl">
 					{props.children}
 				</div>
 			</main>
