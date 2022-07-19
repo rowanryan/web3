@@ -12,7 +12,14 @@ module.exports = {
 		container: {
 			padding: "20px",
 		},
-		extend: {},
+		extend: {
+			colors: {
+				"rr-bg-dark": "#18181b",
+				"rr-bg-light": "#fafafa",
+				"rr-paper-dark": "#27272a",
+				"rr-paper-light": "#f4f4f5",
+			},
+		},
 	},
 	plugins: [],
 };
