@@ -6,9 +6,13 @@ type Props = {
 	children: React.ReactNode;
 };
 
+const getLibrary = (provider: any) => {
+	return new ethers.providers.Web3Provider(provider);
+};
+
 const Provider = (props: Props) => {
 	return (
-		<Web3ReactProvider getLibrary={() => ethers}>
+		<Web3ReactProvider getLibrary={getLibrary}>
 			{props.children}
 		</Web3ReactProvider>
 	);
