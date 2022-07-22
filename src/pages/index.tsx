@@ -4,9 +4,6 @@ import { useWeb3React } from "@web3-react/core";
 import Layout from "src/layouts/main";
 import ConnectWallet from "src/features/connect-wallet";
 import WalletDetails from "src/features/wallet-details";
-import Section from "src/components/Section";
-import Button from "src/components/Button";
-import Paper from "src/components/Paper";
 
 const Home: NextPage = () => {
 	const web3 = useWeb3React();
@@ -26,19 +23,7 @@ const Home: NextPage = () => {
 				My wallet
 			</h1>
 
-			{Boolean(web3.account) && (
-				<div className="mb-12">
-					<WalletDetails />
-				</div>
-			)}
-
-			<Section title="Portfolio" extra={<Button label="Add token" />}>
-				<Paper>
-					<p className="font-body text-rr-text-light text-sm">
-						Lorem ipsum
-					</p>
-				</Paper>
-			</Section>
+			{Boolean(web3.account) && <WalletDetails account={web3.account} />}
 		</Layout>
 	);
 };
