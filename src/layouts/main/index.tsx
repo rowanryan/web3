@@ -9,7 +9,7 @@ type Props = {
 
 const Layout = (props: Props) => {
 	const mainClass = classNames("min-h-screen bg-rr-bg-dark", {
-		"pt-12": props.padding,
+		"pt-8 md:pt-12": props.padding,
 	});
 
 	return (
