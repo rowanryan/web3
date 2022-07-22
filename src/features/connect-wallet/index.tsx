@@ -12,7 +12,10 @@ const ConnectWallet = () => {
 	};
 
 	const connectWalletConnect = () => {
-		const connector = new WalletConnectConnector({});
+		const connector = new WalletConnectConnector({
+			bridge: "https://bridge.walletconnect.org",
+			infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+		});
 		return web3.activate(connector);
 	};
 
