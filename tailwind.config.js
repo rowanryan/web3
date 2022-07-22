@@ -19,6 +19,7 @@ module.exports = {
 				"rr-paper-dark": "#27272a",
 				"rr-paper-light": "#f4f4f5",
 				"rr-border-light": "rgb(255 255 255 / 0.1)",
+				"rr-text-light": "#f1f5f9",
 			},
 		},
 	},
