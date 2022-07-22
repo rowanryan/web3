@@ -1,12 +1,9 @@
 import truncateAddress from "src/utils/truncateAddress";
 import copyToClipboard from "src/utils/copyToClipboard";
 import { useWeb3React } from "@web3-react/core";
+import Button from "src/components/Button";
 
-type Props = {
-	account: string | null | undefined;
-};
-
-const WalletDetails = (props: Props) => {
+const WalletDetails = () => {
 	const web3 = useWeb3React();
 
 	const copyAddress = () => {
@@ -21,28 +18,24 @@ const WalletDetails = (props: Props) => {
 				{truncateAddress(web3.account, 7)}
 			</p>
 
-			<div className="flex flex-wrap items-center mb-12">
-				<a
-					href={`https://etherscan.io/address/${web3.account}`}
-					target="_blank"
-					className="font-display font-semibold text-sm text-blue-500 mr-6"
-				>
-					View on Etherscan
-				</a>
+			<div className="flex flex-wrap items-center">
+				<div className="mr-6">
+					<Button
+						targetBlank
+						label="View on Etherscan"
+						href={`https://etherscan.io/address/${web3.account}`}
+					/>
+				</div>
 				{Boolean(web3.account) ? (
-					<button
-						className="font-display font-semibold text-sm text-blue-500 mr-6"
-						onClick={copyAddress}
-					>
-						Copy address
-					</button>
+					<div className="mr-6">
+						<Button label="Copy address" onClick={copyAddress} />
+					</div>
 				) : null}
-				<button
+				<Button
+					label="Disconnect"
+					variant="danger"
 					onClick={web3.deactivate}
-					className="font-display font-semibold text-sm text-red-500"
-				>
-					Disconnect
-				</button>
+				/>
 			</div>
 		</>
 	);
