@@ -25,6 +25,7 @@ const Button = (props: Props) => {
 		return (
 			<a
 				href={props.href}
+				rel="noreferrer"
 				target={props.targetBlank ? "_blank" : undefined}
 				className={buttonClass}
 			>
