@@ -28,7 +28,7 @@ const Button = (props: Props) => {
 				target={props.targetBlank ? "_blank" : undefined}
 				className={buttonClass}
 			>
-				View on Etherscan
+				{props.label}
 			</a>
 		);
 
