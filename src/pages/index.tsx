@@ -6,7 +6,7 @@ import ConnectWallet from "src/features/connect-wallet";
 import WalletDetails from "src/features/wallet-details";
 import Section from "src/components/Section";
 import Button from "src/components/Button";
-import Paper from "src/components/Paper";
+import Portfolio from "src/features/portfolio";
 
 const Home: NextPage = () => {
 	const web3 = useWeb3React();
@@ -32,12 +32,8 @@ const Home: NextPage = () => {
 				</div>
 			)}
 
-			<Section title="Portfolio" extra={<Button label="Add token" />}>
-				<Paper>
-					<p className="font-body text-rr-text-light text-sm">
-						Lorem ipsum
-					</p>
-				</Paper>
+			<Section title="Portfolio" extra={<Button label="Settings" />}>
+				<Portfolio />
 			</Section>
 		</Layout>
 	);
