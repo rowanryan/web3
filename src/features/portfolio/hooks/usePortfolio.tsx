@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { BigNumber, ethers } from "ethers";
 import getNativeBalance from "../api/getNativeBalance";
 import getTokenBalance from "../api/getTokenBalance";
-import usePortfolioState from "src/stores/usePortfolioState";
+import usePortfolioState from "./usePortfolioState";
 
 type State = {
 	data?: any;
@@ -23,7 +23,7 @@ const usePortfolio = () => {
 
 	useEffect(() => {
 		const tokens: Token[] = [...portfolioState];
-		const apiCalls: Promise<string>[] = tokens.map(token =>
+		const apiCalls: Promise<BigNumber>[] = tokens.map(token =>
 			getTokenBalance(web3, token.address)
 		);
 
@@ -51,7 +51,7 @@ const usePortfolio = () => {
 					error: new Error(error),
 				})
 			);
-	}, []);
+	}, [web3.account, portfolioState]);
 
 	return state;
 };

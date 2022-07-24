@@ -1,7 +1,7 @@
 import truncateAddress from "src/utils/truncateAddress";
 import copyToClipboard from "src/utils/copyToClipboard";
 import { useWeb3React } from "@web3-react/core";
-import Button from "src/components/Button";
+import TextButton from "src/components/TextButton";
 
 const WalletDetails = () => {
 	const web3 = useWeb3React();
@@ -20,7 +20,7 @@ const WalletDetails = () => {
 
 			<div className="flex flex-wrap items-center">
 				<div className="mr-6">
-					<Button
+					<TextButton
 						targetBlank
 						label="View on Etherscan"
 						href={`https://etherscan.io/address/${web3.account}`}
@@ -28,10 +28,13 @@ const WalletDetails = () => {
 				</div>
 				{Boolean(web3.account) ? (
 					<div className="mr-6">
-						<Button label="Copy address" onClick={copyAddress} />
+						<TextButton
+							label="Copy address"
+							onClick={copyAddress}
+						/>
 					</div>
 				) : null}
-				<Button
+				<TextButton
 					label="Disconnect"
 					variant="danger"
 					onClick={web3.deactivate}

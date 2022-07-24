@@ -8,4 +8,11 @@ declare global {
 		address: string;
 		decimals: number;
 	};
+
+	type TokenWithBalance = {
+		symbol: string;
+		address: string;
+		decimals: number;
+		balance: BigNumber;
+	};
 }

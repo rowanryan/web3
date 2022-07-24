@@ -6,8 +6,6 @@ type Props = {
 	targetBlank?: boolean;
 	onClick?: () => any;
 	variant?: "default" | "danger";
-	fullWidth?: boolean;
-	type?: "button" | "submit" | "reset";
 };
 
 const Button = (props: Props) => {
@@ -15,18 +13,14 @@ const Button = (props: Props) => {
 		"font-display",
 		"font-semibold",
 		"text-sm",
-		"py-2",
-		"rounded",
+		"py-1",
 		"transition-colors",
 		"duration-75",
 		"ease-linear",
-		"border-2",
-		"text-blue-500 hover:text-rr-text-light",
-		{ "w-full": props.fullWidth },
 		{
-			"border-blue-500 hover:bg-blue-500":
+			"text-blue-500 hover:text-blue-300":
 				!props.variant || props.variant === "default",
-			"border-red-500 hover:bg-red-500": props.variant === "danger",
+			"text-red-500 hover:text-red-300": props.variant === "danger",
 		}
 	);
 
@@ -43,11 +37,7 @@ const Button = (props: Props) => {
 		);
 
 	return (
-		<button
-			type={props.type}
-			className={buttonClass}
-			onClick={props.onClick}
-		>
+		<button className={buttonClass} onClick={props.onClick}>
 			{props.label}
 		</button>
 	);

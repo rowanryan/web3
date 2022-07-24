@@ -25,7 +25,7 @@ const usePortfolioState = () => {
 		setState(getStateFromLocalStorage());
 	}, []);
 
-	return [state, setNewState, getStateFromLocalStorage];
+	return [state, setNewState];
 };
 
 export default usePortfolioState;
