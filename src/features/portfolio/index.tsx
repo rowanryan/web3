@@ -1,18 +1,18 @@
 import Alert from "src/components/Alert";
 import Paper from "src/components/Paper";
-import SettingsModal from "./components/SettingsModal";
-import useSettingsModal from "./hooks/useSettingsModal";
 import AddTokenModal from "./components/AddTokenModal";
 import useAddTokenModal from "./hooks/useAddTokenModal";
 import TokenBalance from "./components/TokenBalance";
 import usePortfolio from "./hooks/usePortfolio";
 import TextButton from "src/components/TextButton";
+import useRemoveToken from "./hooks/useRemoveToken";
 
 const Portfolio = () => {
 	const { data, isLoading, isError } = usePortfolio();
-	const { state: settingsModalOpen } = useSettingsModal();
 	const { state: addTokenModalOpen, setNewState: setAddTokenModalOpen } =
 		useAddTokenModal();
+
+	const removeToken = useRemoveToken();
 
 	if (isLoading)
 		return (
@@ -40,6 +40,12 @@ const Portfolio = () => {
 							address={token.address}
 							balance={token.balance}
 							decimals={token.decimals}
+							onSend={() => {}}
+							onDelete={
+								index > 0
+									? () => removeToken(token.address)
+									: undefined
+							}
 						/>
 					))}
 				</div>
@@ -52,7 +58,6 @@ const Portfolio = () => {
 				</div>
 			</Paper>
 
-			{Boolean(settingsModalOpen) && <SettingsModal />}
 			{Boolean(addTokenModalOpen) && <AddTokenModal />}
 		</>
 	);

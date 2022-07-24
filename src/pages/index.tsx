@@ -6,13 +6,9 @@ import ConnectWallet from "src/features/connect-wallet";
 import WalletDetails from "src/features/wallet-details";
 import Section from "src/components/Section";
 import Portfolio from "src/features/portfolio";
-import usePortfolioSettingsModal from "src/features/portfolio/hooks/useSettingsModal";
-import TextButton from "src/components/TextButton";
 
 const Home: NextPage = () => {
 	const web3 = useWeb3React();
-	const { setNewState: setPortfolioSettingsModalOpen } =
-		usePortfolioSettingsModal();
 
 	if (!web3.active)
 		return (
@@ -36,15 +32,7 @@ const Home: NextPage = () => {
 					</div>
 				)}
 
-				<Section
-					title="Portfolio"
-					extra={
-						<TextButton
-							label="Your tokens"
-							onClick={() => setPortfolioSettingsModalOpen(true)}
-						/>
-					}
-				>
+				<Section title="Portfolio">
 					<Portfolio />
 				</Section>
 			</Layout>
