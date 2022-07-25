@@ -12,6 +12,12 @@ const WalletDetails = () => {
 		return alert("Copied to clipboard!");
 	};
 
+	const onDisconnect = () => {
+		localStorage.setItem("isWalletConnected", "false");
+
+		return web3.deactivate();
+	};
+
 	return (
 		<>
 			<p className="font-body text-gray-400 font-semibold mb-4">
@@ -37,7 +43,7 @@ const WalletDetails = () => {
 				<TextButton
 					label="Disconnect"
 					variant="danger"
-					onClick={web3.deactivate}
+					onClick={onDisconnect}
 				/>
 			</div>
 		</>

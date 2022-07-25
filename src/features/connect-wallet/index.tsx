@@ -1,22 +1,17 @@
 import { useWeb3React } from "@web3-react/core";
-import { InjectedConnector } from "@web3-react/injected-connector";
-import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import WalletButton from "./components/WalletButton";
+import { Injected, WalletConnect } from "src/utils/web3Connectors";
 
 const ConnectWallet = () => {
 	const web3 = useWeb3React();
 
 	const connectInjected = () => {
-		const connector = new InjectedConnector({});
-		return web3.activate(connector);
+		localStorage.setItem("isWalletConnected", "true");
+		return web3.activate(Injected);
 	};
 
 	const connectWalletConnect = () => {
-		const connector = new WalletConnectConnector({
-			bridge: "https://bridge.walletconnect.org",
-			infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
-		});
-		return web3.activate(connector);
+		return web3.activate(WalletConnect);
 	};
 
 	return (
