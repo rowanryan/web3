@@ -5,7 +5,7 @@ import usePortfolio from "src/features/portfolio/hooks/usePortfolio";
 import Modal from "./Modal";
 import TextButton from "./TextButton";
 
-import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { IoCheckmarkDoneCircle, IoCloseCircle } from "react-icons/io5";
 import { AiOutlineLoading } from "react-icons/ai";
 
 type Props = {
@@ -16,6 +16,7 @@ const TransactionModal = (props: Props) => {
 	const [transactionState, setTransactionState] = useState<{
 		hash?: string;
 		completed?: boolean;
+		error?: string;
 	}>({});
 	const { setNewState: setTransactionModalState } = useTransactionModal();
 	const { forceUpdate } = usePortfolio();
@@ -30,10 +31,12 @@ const TransactionModal = (props: Props) => {
 			return forceUpdate();
 		} catch (error: any) {
 			if (error.code === 4001) {
-				return alert("Transaction was cancelled.");
+				return setTransactionState({
+					error: "Transaction was cancelled.",
+				});
 			}
 
-			return;
+			return setTransactionState({ error: "Something went wrong." });
 		}
 	};
 
@@ -46,7 +49,14 @@ const TransactionModal = (props: Props) => {
 			title="Transaction submitted"
 			onClose={() => setTransactionModalState({ open: false })}
 		>
-			{transactionState.completed ? (
+			{transactionState.error ? (
+				<div className="flex items-center mb-4">
+					<IoCloseCircle className="w-6 h-6 mr-3 text-red-500" />
+					<p className="font-body text-rr-text-light text-center">
+						{transactionState.error}
+					</p>
+				</div>
+			) : transactionState.completed ? (
 				<>
 					<div className="flex items-center mb-4">
 						<IoCheckmarkDoneCircle className="w-6 h-6 mr-3 text-green-500" />
