@@ -6,21 +6,26 @@ type Props = {
 	required?: boolean;
 	type?: string;
 	min?: number;
-	step?: number;
+	step?: string | number;
 	pattern?: string;
 	onKeyDown?: (evt: any) => any;
 	error?: string;
+	extra?: React.ReactNode;
 };
 
 const InputField = (props: Props) => {
 	return (
 		<>
-			<label
-				htmlFor={props.name}
-				className="inline-block font-display text-rr-text-light text-sm mb-2"
-			>
-				{props.label}
-			</label>
+			<div className="flex justify-between items-center mb-2">
+				<label
+					htmlFor={props.name}
+					className="inline-block font-display text-rr-text-light text-sm"
+				>
+					{props.label}
+				</label>
+
+				{props.extra}
+			</div>
 
 			<input
 				id={props.name}

@@ -1,14 +1,16 @@
 import { BigNumber } from "ethers";
+
 import formatUnits from "src/utils/formatUnits";
 import truncateAddress from "src/utils/truncateAddress";
-import { IoTrashBinOutline } from "react-icons/io5";
+import TokenButton from "./TokenButton";
 
 type Props = {
 	native?: boolean;
 	address?: string;
 	symbol: string;
-	balance?: BigNumber;
+	balance: BigNumber;
 	decimals: number;
+	onSend?: () => any;
 	onDelete?: () => any;
 };
 
@@ -26,15 +28,29 @@ const TokenBalance = (props: Props) => {
 				</p>
 			</div>
 
-			{props.onDelete ? (
-				<button className="w-5 h-5" onClick={props.onDelete}>
-					<IoTrashBinOutline className="text-rr-text-light/70 hover:text-rr-text-light transition-colors duration-75 ease-linear w-full h-full" />
-				</button>
-			) : props.balance ? (
+			<div className="flex flex-col items-end">
 				<p className="font-body text-rr-text-light font-semibold">
 					{formatUnits(props.balance, props.decimals)}
 				</p>
-			) : null}
+
+				<div className="flex items-center gap-x-2">
+					{props.onSend && (
+						<TokenButton label="Send" onClick={props.onSend} />
+					)}
+
+					{props.onSend && props.onDelete && (
+						<div className="w-1 h-1 rounded-full bg-zinc-500" />
+					)}
+
+					{props.onDelete && (
+						<TokenButton
+							label="Remove"
+							variant="danger"
+							onClick={props.onDelete}
+						/>
+					)}
+				</div>
+			</div>
 		</div>
 	);
 };

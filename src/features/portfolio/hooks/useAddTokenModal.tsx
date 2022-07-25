@@ -1,12 +1,12 @@
 import { atom, useRecoilState } from "recoil";
 
-const portfolioAddtokenModalState = atom({
-	key: "portfolioAddtokenModalState",
+const portfolioAddTokenModalState = atom({
+	key: "portfolioAddTokenModalState",
 	default: false,
 });
 
-const useAddtokenModal = () => {
-	const [state, setState] = useRecoilState(portfolioAddtokenModalState);
+const useAddTokenModal = () => {
+	const [state, setState] = useRecoilState(portfolioAddTokenModalState);
 
 	const setNewState = (newState: boolean) => {
 		return setState(newState);
@@ -15,4 +15,4 @@ const useAddtokenModal = () => {
 	return { state, setNewState };
 };
 
-export default useAddtokenModal;
+export default useAddTokenModal;
