@@ -1,5 +1,7 @@
 import Head from "next/head";
 import classNames from "classnames";
+import useTransactionModal from "src/hooks/useTransactionModal";
+import TransactionModal from "src/components/TransactionModal";
 
 type Props = {
 	title: string;
@@ -8,6 +10,8 @@ type Props = {
 };
 
 const Layout = (props: Props) => {
+	const { state: sendTransactionModalState } = useTransactionModal();
+
 	const mainClass = classNames("min-h-screen bg-rr-bg-dark", {
 		"pt-8 md:pt-12": props.padding,
 	});
@@ -24,6 +28,10 @@ const Layout = (props: Props) => {
 					{props.children}
 				</div>
 			</main>
+
+			{sendTransactionModalState.open && (
+				<TransactionModal fn={sendTransactionModalState.fn} />
+			)}
 		</>
 	);
 };
