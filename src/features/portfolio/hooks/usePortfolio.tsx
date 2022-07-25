@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { BigNumber, ethers } from "ethers";
 import getNativeBalance from "../api/getNativeBalance";
@@ -14,12 +14,25 @@ type State = {
 
 const usePortfolio = () => {
 	const web3 = useWeb3React<ethers.providers.Web3Provider>();
-	const [portfolioState] = usePortfolioState();
+	const [portfolioState, setPortfolioState] = usePortfolioState();
+	const [counter, setCounter] = useState(0);
 
 	const [state, setState] = useState<State>({
 		isLoading: true,
 		isError: false,
 	});
+
+	const removeToken = (address: string) => {
+		const newState = portfolioState.filter(
+			(token: any) => token.address !== address
+		);
+
+		return setPortfolioState(newState);
+	};
+
+	const forceUpdate = () => {
+		return setCounter(counter + 1);
+	};
 
 	useEffect(() => {
 		const tokens: Token[] = [...portfolioState];
@@ -28,7 +41,7 @@ const usePortfolio = () => {
 		);
 
 		Promise.all([getNativeBalance(web3), ...apiCalls])
-			.then(data =>
+			.then(data => {
 				setState({
 					data: [
 						{ symbol: "ETH", decimals: 18, balance: data[0] },
@@ -41,8 +54,8 @@ const usePortfolio = () => {
 					],
 					isLoading: false,
 					isError: false,
-				})
-			)
+				});
+			})
 			.catch(error =>
 				setState({
 					data: null,
@@ -51,9 +64,9 @@ const usePortfolio = () => {
 					error: new Error(error),
 				})
 			);
-	}, [web3.account, portfolioState]);
+	}, [web3.account, portfolioState, counter]);
 
-	return state;
+	return { ...state, removeToken, forceUpdate };
 };
 
 export default usePortfolio;

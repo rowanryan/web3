@@ -41,7 +41,7 @@ const PortfolioModal = () => {
 		symbol?: string[];
 		decimals?: string[];
 		address?: string[];
-	}>();
+	}>({});
 
 	const onSubmit = (evt: any) => {
 		evt.preventDefault();
@@ -74,9 +74,7 @@ const PortfolioModal = () => {
 						label="Symbol"
 						name="symbol"
 						error={
-							formErrors?.symbol
-								? formErrors.symbol[0]
-								: undefined
+							formErrors.symbol ? formErrors.symbol[0] : undefined
 						}
 					/>
 				</div>
@@ -106,7 +104,7 @@ const PortfolioModal = () => {
 								return evt.preventDefault();
 						}}
 						error={
-							formErrors?.decimals
+							formErrors.decimals
 								? formErrors.decimals[0]
 								: undefined
 						}
@@ -118,7 +116,7 @@ const PortfolioModal = () => {
 						label="Token address"
 						name="address"
 						error={
-							formErrors?.address
+							formErrors.address
 								? formErrors.address[0]
 								: undefined
 						}

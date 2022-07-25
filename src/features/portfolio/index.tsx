@@ -1,18 +1,19 @@
 import Alert from "src/components/Alert";
 import Paper from "src/components/Paper";
-import AddTokenModal from "./components/AddTokenModal";
-import useAddTokenModal from "./hooks/useAddTokenModal";
 import TokenBalance from "./components/TokenBalance";
 import usePortfolio from "./hooks/usePortfolio";
 import TextButton from "src/components/TextButton";
-import useRemoveToken from "./hooks/useRemoveToken";
+import AddTokenModal from "./components/AddTokenModal";
+import useAddTokenModal from "./hooks/useAddTokenModal";
+import SendTokenModal from "./components/SendTokenModal";
+import useSendTokenModal from "./hooks/useSendTokenModal";
 
 const Portfolio = () => {
-	const { data, isLoading, isError } = usePortfolio();
+	const { data, isLoading, isError, removeToken } = usePortfolio();
 	const { state: addTokenModalOpen, setNewState: setAddTokenModalOpen } =
 		useAddTokenModal();
-
-	const removeToken = useRemoveToken();
+	const { state: sendTokenModalState, setNewState: setSendTokenModalState } =
+		useSendTokenModal();
 
 	if (isLoading)
 		return (
@@ -32,7 +33,7 @@ const Portfolio = () => {
 		<>
 			<Paper>
 				<div className="grid grid-cols-1 gap-y-6 mb-5">
-					{data.map((token: any, index: number) => (
+					{data.map((token: TokenWithBalance, index: number) => (
 						<TokenBalance
 							key={index}
 							native={!token.address}
@@ -40,7 +41,15 @@ const Portfolio = () => {
 							address={token.address}
 							balance={token.balance}
 							decimals={token.decimals}
-							onSend={() => {}}
+							onSend={
+								index > 0
+									? () =>
+											setSendTokenModalState({
+												open: true,
+												data: token,
+											})
+									: undefined
+							}
 							onDelete={
 								index > 0
 									? () => removeToken(token.address)
@@ -58,7 +67,13 @@ const Portfolio = () => {
 				</div>
 			</Paper>
 
-			{Boolean(addTokenModalOpen) && <AddTokenModal />}
+			{addTokenModalOpen && <AddTokenModal />}
+			{sendTokenModalState.open && (
+				<SendTokenModal
+					data={sendTokenModalState.data!}
+					onDone={() => setSendTokenModalState({ open: false })}
+				/>
+			)}
 		</>
 	);
 };
