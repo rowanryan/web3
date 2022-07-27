@@ -64,7 +64,7 @@ const usePortfolio = () => {
 					error: new Error(error),
 				})
 			);
-	}, [web3.account, portfolioState, counter]);
+	}, [web3.account, web3.chainId, portfolioState, counter]);
 
 	return { ...state, removeToken, forceUpdate };
 };
